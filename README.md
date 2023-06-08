@@ -6,7 +6,7 @@ I wanted to have sea temperature displayed on my HomeAssistant weather dashboard
 If you want to add this to HomeAssistant, create a new sensor inside `configuration.yaml`:
 
 ``` yaml
-sensor
+sensor:
   - platform: rest
     resource: http://localhost:3000/morjeTemp
     method: GET
