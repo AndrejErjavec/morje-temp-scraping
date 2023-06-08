@@ -1,5 +1,5 @@
 # morje-temp-scraping
-Scraper za temperaturo morja v Kopru
+Scraper for sea temperature
 
 I wanted to have sea temperature displayed on my HomeAssistant weather dashboard. Beause of problems with multiscrape integration I wrote this simple script to scrape the data and provide and endpoint where HomeAssistant can access it via its RESTful sensor.
 
