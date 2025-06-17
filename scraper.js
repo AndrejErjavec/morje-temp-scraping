@@ -1,25 +1,32 @@
-import * as cheerio from 'cheerio';
-import fetch from 'node-fetch';
+import * as cheerio from "cheerio";
+import fetch from "node-fetch";
 
-let prevRes = "0"
+let prevRes = "0";
 
 export const getTemp = async (req, res) => {
   try {
-    const response = await fetch('https://www.arso.gov.si/vode/podatki/amp/H9350_t_1.html');
+    const response = await fetch(
+      "https://www.arso.gov.si/vode/podatki/amp/H9350_t_1.html"
+    );
     const page = await response.text();
 
     const $ = cheerio.load(page);
 
-    const element = $('#glavna > tbody > tr > td.vsebina > table.podatki > tbody > tr:nth-child(1) > td:nth-child(3)')
-    if (element.text() === "-") {
-      res.send(prevRes)
-      return
-    }
-    prevRes = element.text()
-    res.send(element.text())
+    const rows = $("table.podatki > tbody > tr");
+
+    let firstValidTemp = null;
+
+    rows.each((i, row) => {
+      const tempText = $(row).find("td").eq(1).text().trim();
+      if (tempText !== "-") {
+        firstValidTemp = tempText;
+        return false;
+      }
+    });
+
+    res.send(firstValidTemp);
+  } catch (error) {
+    res.send("error while fetching data");
+    console.log(error);
   }
-  catch(error) {
-    res.send("error while fetching data")
-    console.log(error)
-  }
-}
+};

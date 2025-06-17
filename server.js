@@ -1,11 +1,13 @@
-import express from 'express';
-import {getTemp} from './scraper.js'
+import express from "express";
+import { getTemp } from "./scraper.js";
 
 const app = express();
 
-app.get('/morjeTemp', getTemp)
+const PORT = process.env.PORT || 7878;
 
-app.listen(3000, (err) => {
-  if (err) console.log(err)
-  console.log("server started")
-})
+app.get("/temperature", getTemp);
+
+app.listen(PORT, (err) => {
+  if (err) console.log(err);
+  console.log("server started");
+});
