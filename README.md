@@ -8,7 +8,7 @@ If you want to add this to HomeAssistant, create a new sensor inside `configurat
 ``` yaml
 sensor:
   - platform: rest
-    resource: http://localhost:3000/morjeTemp
+    resource: http://localhost:3000/temperature
     method: GET
     name: "Morje Koper temperatura"
     unique_id: morje-koper-temp
